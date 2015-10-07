@@ -1,0 +1,20 @@
+{
+  "name": "ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node lib/app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "*",
+    "bootstrap": "*",
+    "cookie-parser": "*",
+    "doctrine": "^0.7.0",
+    "errorhandler": "^1.4.2",
+    "express": "4.*.*",
+    "jade": "*"
+  }
+}
