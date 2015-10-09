@@ -137,21 +137,36 @@ export module MVC{
 						getAllActions(target, actions);
 						actions.forEach(action=>{
 							app[EnumHttpMethod[action.Method]]((action.Route || (ctrl.Name + '/' + action.Name)), function(req:express.Request, res:express.Response, next:any){
-								var values=[]
-								var params = req.params;
-								// if(!params.req) params.req=req;
-								// if(!params.res) params.res=res;
-								// if(!params.next) params.next=next;
-								action.Parameters.forEach((p:any)=>{
+								var dicValues:{[name:string]:any}={};
+								var reqParams = req.params;
+								if(!reqParams.req) reqParams.req=req;
+								if(!reqParams.res) reqParams.res=res;
+								if(!reqParams.next) reqParams.next=next;
+								action.Parameters.forEach((n:string)=>{
 									var value = undefined;
-									if(params[p]){
-										value = params[p];
+									if(reqParams[n]){
+										value = reqParams[n];
 									}
-									values.push(value);
+									dicValues[n] = value;
 								});
-								var tp=values.map(c=>(typeof c === 'string')?('"'+c+'"'):c).join(',');
-								var actionResult = eval('(target[action.Name])('+ tp + (tp?',':'') +'req, res, next)');//(target[action.Name]).apply(null, values)
-								actionResult({
+								
+								var temp=[];//temp values for concat js invoke statement, if can invoke by 'apply' or 'call', can delete this
+								for(var name in dicValues){
+									var v=dicValues[name];
+									if(typeof v === 'undefined' || v == null)
+										temp.push('undefined');
+									else if(typeof v === 'string')
+										temp.push('"'+v+'"');
+									else if (typeof v == 'object')
+										temp.push(name);
+									else
+										temp.push(v);
+								}
+								var js=temp.join(', ');
+								js = '(target[action.Name])('+ (js&&js.length>0 ? js + ', ' : '') +'req, res, next)';
+								
+								var actionResult = eval(js);//(target[action.Name]).apply(null, values)
+								actionResult && actionResult({
 									defaultView:ctrl.Name + '/' + action.Name
 								}, req, res, next);
 							});
