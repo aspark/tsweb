@@ -8,6 +8,7 @@ import express = require('express');
 import path = require('path');
 import bodyParser = require('body-parser');
 import errorhandler = require('errorhandler');
+// import util = require('util')
 
 var app = express();
 
@@ -26,6 +27,13 @@ import ctrl = require('./controllers/IController');
 ctrl.Controllers.Controller.getAllRoutes(path.join(__dirname, 'controllers')).forEach(rt=>{
 	app.use(rt.Name, rt.Router);
 })
+
+// var router = express.Router();
+// router.get('/', function(req, res){
+// 	console.log('test')
+// 	res.json({static:true})
+// });
+// app.use('/', router);
 
 // import rtHome = require('./controllers/HomeController');
 

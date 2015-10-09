@@ -8,13 +8,13 @@ export module Controllers{
 			super();
 		}
 		
-		initActions(){
-			super.action('get', this.index);
+		index(){
+			/*! @httpGet('/') */
+			super.rend();
 		}
 		
-		/*! @httpget() */
-		index(){
-
+		OtherAction(){
+			/*! @httpPost() */
 			super.rend();
 		}
 	}

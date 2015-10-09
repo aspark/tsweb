@@ -5,11 +5,11 @@
 	"configurations": [
 		{
 			// Name of configuration; appears in the launch configuration drop down menu.
-			"name": "Launch app.js",
+			"name": "Launch app",
 			// Type of configuration. Possible values: "node", "mono".
 			"type": "node",
 			// Workspace relative or absolute path to the program.
-			"program": "app.ts",
+			"program": "lib/app.js",
 			// Automatically stop program after launch.
 			"stopOnEntry": false,
 			// Command line arguments passed to the program.
@@ -21,14 +21,13 @@
 			// Optional arguments passed to the runtime executable.
 			"runtimeArgs": ["--nolazy"],
 			// Environment variables passed to the program.
-			"env": {
-				"NODE_ENV": "development",
-				"port": 3000
+			"env": { 
+				
 			},
 			// Use JavaScript source maps (if they exist).
 			"sourceMaps": false,
 			// If JavaScript source maps are enabled, the generated code is expected in this directory.
-			"outDir": null
+			"outDir": "lib"
 		},
 		{
 			"name": "Attach",
@@ -37,7 +36,7 @@
 			"address": "localhost",
 			// Port to attach to.
 			"port": 5858,
-			"sourceMaps": false
+			"sourceMaps": true
 		}
 	]
 }
