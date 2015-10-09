@@ -1,11 +1,13 @@
 ///<reference path='../typings/express/express.d.ts'/>
 ///<reference path='../typings/doctrine/doctrine.d.ts'/>
+///<reference path='../typings/extend/extend.d.ts'/>
 
 import express = require('express');
 import path = require('path');
 import fs = require('fs');
 import util = require('util');
 import mc = require('./IController')
+import extend = require('extend');
 	
 export module MVC{
 
@@ -138,7 +140,9 @@ export module MVC{
 						actions.forEach(action=>{
 							app[EnumHttpMethod[action.Method]]((action.Route || (ctrl.Name + '/' + action.Name)), function(req:express.Request, res:express.Response, next:any){
 								var dicValues:{[name:string]:any}={};
-								var reqParams = req.params;
+								var reqParams:any = {};
+								extend(reqParams, req.params||{});
+								extend(reqParams, req.query||{});
 								if(!reqParams.req) reqParams.req=req;
 								if(!reqParams.res) reqParams.res=res;
 								if(!reqParams.next) reqParams.next=next;

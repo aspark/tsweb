@@ -15,6 +15,7 @@
     "doctrine": "^0.7.0",
     "errorhandler": "^1.4.2",
     "express": "4.*.*",
+    "extend": "^3.0.0",
     "jade": "*"
   }
 }
