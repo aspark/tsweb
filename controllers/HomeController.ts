@@ -1,8 +1,7 @@
-
-import base = require('./IController');
+import fw = require('./IController');
 
 export module Controllers{
-	export class HomeController extends base.Controllers.Controller{
+	export class HomeController extends fw.MVC.Controllers.Controller{
 		
 		constructor(){
 			super();
@@ -10,12 +9,14 @@ export module Controllers{
 		
 		index(){
 			/*! @httpGet('/') */
-			super.rend();
+			return super.rend(null, {
+				name:'aspark'
+			});
 		}
 		
 		OtherAction(){
 			/*! @httpPost() */
-			super.rend();
+			return super.rend();
 		}
 	}
 	

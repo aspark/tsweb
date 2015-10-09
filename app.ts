@@ -14,7 +14,7 @@ var app = express();
 
 
 app.set('port', process.env.port||3000);
-app.set('views', __dirname+'../views');
+app.set('views', path.join(__dirname+'/../views'));
 app.set('view engine', 'jade');
 
 
@@ -23,21 +23,7 @@ app.use(express.static(__dirname+'public'));
 
 app.use(errorhandler());
 
-import ctrl = require('./controllers/IController');
-ctrl.Controllers.Controller.getAllRoutes(path.join(__dirname, 'controllers')).forEach(rt=>{
-	app.use(rt.Name, rt.Router);
-})
-
-// var router = express.Router();
-// router.get('/', function(req, res){
-// 	console.log('test')
-// 	res.json({static:true})
-// });
-// app.use('/', router);
-
-// import rtHome = require('./controllers/HomeController');
-
-// app.use('/', new rtHome.Controllers.HomeController().registerRoute());
+require('./controllers/MvcStartup').MVC.MvcStartup.registerAllControllers(path.join(__dirname, 'controllers'), app);
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log('server starting');
